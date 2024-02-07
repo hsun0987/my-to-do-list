@@ -25,18 +25,18 @@ public class LoginController {
     public String loginHome(){
         return "redirect:/login/login.html";
     }
-    /*@PostMapping("")
+    @PostMapping("")
     public String login(@Valid LoginDto form, BindingResult bindingResult, HttpServletRequest request, HttpServletRequest response){
         if(bindingResult.hasErrors()) {
             return "redirect:/login/fail.html";
         }
-        if(member.containsKey(form.email) && member.get(form.email).getPw1().equals(form.pw)){
+        if(loginMapper.findMember(form.email) != null && loginMapper.findMember(form.email).getPw1().equals(form.pw)){
             HttpSession session = request.getSession();
             session.setAttribute("id", form);
             return "todo/todos";
         }
         return "redirect:/login/fail.html";
-    }*/
+    }
     @GetMapping("/signup")
     public String sigupHome(){
         return "redirect:/join/signup.html";
@@ -46,11 +46,11 @@ public class LoginController {
        if(bindingResult.hasErrors()) {
            return "redirect:/join/signup.html";
        }
-      /* if(!member.(form.email) && form.pw1.equals(form.pw2)){
-           member.put(form.email, form);
-       }*/
-        loginMapper.addMember(form);
-        return "redirect:/join/join.html";
+       if(loginMapper.findMember(form.email) == null && form.pw1.equals(form.pw2)){
+           loginMapper.addMember(form);
+           return "redirect:/join/join.html";
+       }
+       return "redirect:/join/signup.html";
     }
     @PostMapping("/logout")
     public String logout(HttpServletRequest request){

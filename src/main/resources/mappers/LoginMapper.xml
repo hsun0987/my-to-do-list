@@ -3,12 +3,12 @@
 
 <mapper namespace="com.kitri.mytodolist.mappers.LoginMapper">
     <sql id="memberColumns">
-        email, name, pw
+        email, name, pw as pw1
     </sql>
 
     <insert id="addMember" parameterType="com.kitri.mytodolist.login.SignupFormDto">
         INSERT INTO member (
-        <include refid="memberColumns" />
+        <include refid="memberColumns"/>
         ) VALUES (
         #{email}
         , #{name}
@@ -16,4 +16,7 @@
         )
     </insert>
 
+    <select id="findMember" parameterType="String" resultType="com.kitri.mytodolist.login.SignupFormDto">
+        SELECT <include refid="memberColumns"/> FROM member WHERE email = #{email}
+    </select>
 </mapper>
