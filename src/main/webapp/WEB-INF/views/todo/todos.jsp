@@ -8,8 +8,12 @@
     <title>Todo List</title>
 </head>
 <body>
+<form method="post" action="/login/logout">
+    <input type="submit" value="로그아웃">
+</form>
+
 <h1>todo-list</h1>
-<form id="form">
+<form id="form" class="todoForm">
     <input type="text" class="input" id="input" placeholder="Enter your todo" autocomplete="off">
 
     <ul class="todos" id="todos"></ul>

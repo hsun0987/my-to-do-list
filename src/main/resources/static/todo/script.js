@@ -41,7 +41,7 @@ async function addTodo(data){
     showTodo();
 }
 
-document.querySelector('form').addEventListener('submit', (event => {
+document.querySelector('.todoForm').addEventListener('submit', (event => {
     event.preventDefault();
     let data = document.querySelector('input').value;
     addTodo(data);

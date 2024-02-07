@@ -1,6 +1,7 @@
 package com.kitri.mytodolist.login;
 
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,10 @@ public class SignupFormDto {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,20}$", message = "비밀번호는 8~20자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
     String pw2;
 
+    public SignupFormDto(String email, String name, String pw1, String pw2) {
+        this.email = email;
+        this.name = name;
+        this.pw1 = pw1;
+        this.pw2 = pw2;
+    }
 }

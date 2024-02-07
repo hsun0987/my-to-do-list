@@ -14,7 +14,11 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    static HashMap<String, SignupFormDto> member = new HashMap<>();
+    static HashMap<String, SignupFormDto> member = new HashMap<String, SignupFormDto>(){
+        {
+            put("123@naver.com", new SignupFormDto("123@naver.com", "키트리", "kitri123!", "kitri123!"));
+        }
+    };
 
     @GetMapping("")
     public String loginHome(){
@@ -28,7 +32,7 @@ public class LoginController {
         if(member.containsKey(form.email) && member.get(form.email).getPw1().equals(form.pw)){
             HttpSession session = request.getSession();
             session.setAttribute("id", form);
-            return "redirect:/login/success.html";
+            return "todo/todos";
         }
         return "redirect:/login/fail.html";
     }
