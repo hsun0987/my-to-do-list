@@ -1,4 +1,4 @@
-package com.kitri.mytodolist.todo.mappers;
+package com.kitri.mytodolist.mappers;
 
 import com.kitri.mytodolist.todo.dto.RequestTodo;
 import com.kitri.mytodolist.todo.dto.ResponseTodo;

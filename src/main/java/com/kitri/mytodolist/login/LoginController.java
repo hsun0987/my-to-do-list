@@ -1,12 +1,16 @@
 package com.kitri.mytodolist.login;
 
+import com.kitri.mytodolist.mappers.LoginMapper;
+import com.kitri.mytodolist.mappers.TodoMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
@@ -14,17 +18,14 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    static HashMap<String, SignupFormDto> member = new HashMap<String, SignupFormDto>(){
-        {
-            put("123@naver.com", new SignupFormDto("123@naver.com", "키트리", "kitri123!", "kitri123!"));
-        }
-    };
+    @Autowired
+    LoginMapper loginMapper;
 
     @GetMapping("")
     public String loginHome(){
         return "redirect:/login/login.html";
     }
-    @PostMapping("")
+    /*@PostMapping("")
     public String login(@Valid LoginDto form, BindingResult bindingResult, HttpServletRequest request, HttpServletRequest response){
         if(bindingResult.hasErrors()) {
             return "redirect:/login/fail.html";
@@ -35,7 +36,7 @@ public class LoginController {
             return "todo/todos";
         }
         return "redirect:/login/fail.html";
-    }
+    }*/
     @GetMapping("/signup")
     public String sigupHome(){
         return "redirect:/join/signup.html";
@@ -45,9 +46,10 @@ public class LoginController {
        if(bindingResult.hasErrors()) {
            return "redirect:/join/signup.html";
        }
-       if(!member.containsKey(form.email) && form.pw1.equals(form.pw2)){
+      /* if(!member.(form.email) && form.pw1.equals(form.pw2)){
            member.put(form.email, form);
-       }
+       }*/
+        loginMapper.addMember(form);
         return "redirect:/join/join.html";
     }
     @PostMapping("/logout")

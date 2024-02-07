@@ -2,7 +2,7 @@ package com.kitri.mytodolist.todo.controller;
 
 import com.kitri.mytodolist.todo.dto.RequestTodo;
 import com.kitri.mytodolist.todo.dto.ResponseTodo;
-import com.kitri.mytodolist.todo.mappers.TodoMapper;
+import com.kitri.mytodolist.mappers.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
