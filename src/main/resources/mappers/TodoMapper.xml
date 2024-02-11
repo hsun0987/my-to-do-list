@@ -3,7 +3,7 @@
 
 <mapper namespace="com.kitri.mytodolist.mappers.TodoMapper">
     <sql id="requestColumns">
-        content, done
+        content, done, member_id
     </sql>
 
     <sql id="responseColumns">
@@ -18,17 +18,8 @@
         <result property="modifiedAt" column="modified_at"/>
     </resultMap>
 
-    <!--<select id="findById" parameterType="Long" resultType="com.kitri.springbasicboot.lesson.mybatis.dto.ResponseTodo">
-        SELECT * FROM todo WHERE id = #{id}
-    </select>-->
-    <!--    <select id="findAll" resultType="com.kitri.springbasicboot.lesson.mybatis.dto.ResponseTodo">-->
-    <!--        SELECT <include refid="responseColumns"/> FROM todo-->
-    <!--    </select>-->
-    <!--    <select id="findAll" resultMap="todoResultMap">-->
-    <!--        SELECT * FROM todo-->
-    <!--    </select>-->
     <select id="findAll" resultType="com.kitri.mytodolist.todo.dto.ResponseTodo">
-        SELECT * FROM todo
+        SELECT * FROM todo WHERE member_id = #{memberId}
     </select>
 
     <insert id="save" parameterType="com.kitri.mytodolist.todo.dto.RequestTodo">
@@ -37,6 +28,7 @@
         ) VALUES (
         #{content}
         , #{done}
+        , #{memberId}
         )
     </insert>
 
@@ -46,7 +38,7 @@
         FROM
         todo
         WHERE
-        id = #{value}
+        id = #{id}
     </select>
 
     <update id="update" parameterType="com.kitri.mytodolist.todo.dto.ResponseTodo">
@@ -64,5 +56,13 @@
         WHERE
             id = #{id}
     </delete>
-
+    <!--<select id="findById" parameterType="Long" resultType="com.kitri.springbasicboot.lesson.mybatis.dto.ResponseTodo">
+         SELECT * FROM todo WHERE id = #{id}
+     </select>-->
+    <!--    <select id="findAll" resultType="com.kitri.springbasicboot.lesson.mybatis.dto.ResponseTodo">-->
+    <!--        SELECT <include refid="responseColumns"/> FROM todo-->
+    <!--    </select>-->
+    <!--    <select id="findAll" resultMap="todoResultMap">-->
+    <!--        SELECT * FROM todo-->
+    <!--    </select>-->
 </mapper>

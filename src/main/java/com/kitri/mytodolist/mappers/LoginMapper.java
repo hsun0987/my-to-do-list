@@ -6,7 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LoginMapper {
     SignupFormDto findMember(String email);
-
     void addMember(SignupFormDto member);
-
 }

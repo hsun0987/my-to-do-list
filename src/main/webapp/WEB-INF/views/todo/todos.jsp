@@ -1,3 +1,4 @@
+<%@ page import="com.kitri.mytodolist.login.SignupFormDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +9,11 @@
     <title>Todo List</title>
 </head>
 <body>
+<%
+    SignupFormDto member = (SignupFormDto) session.getAttribute("id");
+    String name = member.getName();
+    out.print(name + "님의 ToDoList");
+%>
 <form method="post" action="/login/logout">
     <input type="submit" value="로그아웃">
 </form>

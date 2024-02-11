@@ -32,7 +32,7 @@ public class LoginController {
         }
         if(loginMapper.findMember(form.email) != null && loginMapper.findMember(form.email).getPw1().equals(form.pw)){
             HttpSession session = request.getSession();
-            session.setAttribute("id", form);
+            session.setAttribute("id", loginMapper.findMember(form.email));
             return "todo/todos";
         }
         return "redirect:/login/fail.html";
@@ -60,5 +60,4 @@ public class LoginController {
         }
         return "redirect:/login/login.html";
     }
-
 }

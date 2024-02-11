@@ -1,8 +1,11 @@
 package com.kitri.mytodolist.todo.controller;
 
+import com.kitri.mytodolist.login.LoginDto;
+import com.kitri.mytodolist.login.SignupFormDto;
 import com.kitri.mytodolist.todo.dto.RequestTodo;
 import com.kitri.mytodolist.todo.dto.ResponseTodo;
 import com.kitri.mytodolist.mappers.TodoMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +19,13 @@ public class TodoApiController {
     TodoMapper todoMapper;
 
     @GetMapping("")
-    public ArrayList<ResponseTodo> todos(){
-        ArrayList<ResponseTodo> list = (ArrayList<ResponseTodo>) todoMapper.findAll();
+    public ArrayList<ResponseTodo> todos(@SessionAttribute(name="id", required = false) SignupFormDto dto){
+        ArrayList<ResponseTodo> list = (ArrayList<ResponseTodo>) todoMapper.findAll(dto.getId());
         return list;
     }
     @PostMapping("")
-    public void add(@RequestBody RequestTodo todo){
+    public void add(@RequestBody RequestTodo todo, @SessionAttribute(name="id", required = false) SignupFormDto dto){
+        todo.setMemberId(dto.getId());
         todoMapper.save(todo);
     }
     @PutMapping("{id}")

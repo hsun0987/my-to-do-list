@@ -9,7 +9,7 @@ import java.util.List;
 // 기존 DAO 역할
 @Mapper
 public interface TodoMapper {
-    List<ResponseTodo> findAll();
+    List<ResponseTodo> findAll(Long memberId);
     ResponseTodo findById(Long id);
     void save(RequestTodo todo);
     void update(Long id);

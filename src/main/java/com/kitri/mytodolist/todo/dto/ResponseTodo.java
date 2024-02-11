@@ -13,4 +13,5 @@ public class ResponseTodo {
     boolean done;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
+    Long memberId;
 }

@@ -9,4 +9,5 @@ public class RequestTodo {
     Long id;
     String content;
     boolean done;
+    Long memberId;
 }
