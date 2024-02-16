@@ -1,39 +1,31 @@
-/*
 package com.kitri.mytodolist.login;
 
 import com.kitri.mytodolist.mappers.LoginMapper;
-import com.kitri.mytodolist.mappers.TodoMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
-@Controller
-@RequestMapping("/login")
-public class LoginController {
+@RestController
+@RequestMapping("/api/login")
+public class LoginApiController {
     @Autowired
     LoginMapper loginMapper;
 
-    @GetMapping("")
-    public String loginHome(){
-        return "redirect:/login/login.html";
-    }
     @PostMapping("")
-    public String login(@Valid LoginDto form, BindingResult bindingResult, HttpServletRequest request, HttpServletRequest response){
+    public boolean login(@RequestBody @Valid LoginDto form, BindingResult bindingResult, HttpServletRequest request, HttpServletRequest response){
         if(bindingResult.hasErrors()) {
-            return "redirect:/login/fail.html";
+            return false;
         }
         if(loginMapper.findMember(form.email) != null && loginMapper.findMember(form.email).getPw1().equals(form.pw)){
             HttpSession session = request.getSession();
             session.setAttribute("id", loginMapper.findMember(form.email));
-            return "todo/todos";
+            System.out.println(session);
+            return true;
         }
-        return "redirect:/login/fail.html";
+        return false;
     }
     @GetMapping("/signup")
     public String signupHome(){
@@ -41,14 +33,14 @@ public class LoginController {
     }
     @PostMapping("/signup")
     public String signup(@Valid SignupFormDto form, BindingResult bindingResult){
-       if(bindingResult.hasErrors()) {
-           return "redirect:/join/signup.html";
-       }
-       if(loginMapper.findMember(form.email) == null && form.pw1.equals(form.pw2)){
-           loginMapper.addMember(form);
-           return "redirect:/join/join.html";
-       }
-       return "redirect:/join/signup.html";
+        if(bindingResult.hasErrors()) {
+            return "redirect:/join/signup.html";
+        }
+        if(loginMapper.findMember(form.email) == null && form.pw1.equals(form.pw2)){
+            loginMapper.addMember(form);
+            return "redirect:/join/join.html";
+        }
+        return "redirect:/join/signup.html";
     }
     @PostMapping("/logout")
     public String logout(HttpServletRequest request){
@@ -59,4 +51,3 @@ public class LoginController {
         return "redirect:/login/login.html";
     }
 }
-*/

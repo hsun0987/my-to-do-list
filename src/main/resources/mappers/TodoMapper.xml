@@ -18,7 +18,11 @@
         <result property="modifiedAt" column="modified_at"/>
     </resultMap>
 
-    <select id="findAll" resultType="com.kitri.mytodolist.todo.dto.ResponseTodo">
+    <select id="
+
+
+
+    findAll" resultType="com.kitri.mytodolist.todo.dto.ResponseTodo">
         SELECT * FROM todo WHERE member_id = #{memberId}
     </select>
 
