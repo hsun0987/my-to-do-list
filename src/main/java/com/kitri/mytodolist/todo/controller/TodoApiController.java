@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController
@@ -24,9 +25,11 @@ public class TodoApiController {
         return list;
     }
     @PostMapping("")
-    public void add(@RequestBody RequestTodo todo, @SessionAttribute(name="id", required = false) SignupFormDto dto){
+    public ArrayList<ResponseTodo> add(@RequestBody RequestTodo todo, @SessionAttribute(name="id", required = false) SignupFormDto dto){
         todo.setMemberId(dto.getId());
         todoMapper.save(todo);
+        ArrayList<ResponseTodo> list = (ArrayList<ResponseTodo>) todoMapper.findAll(dto.getId());
+        return list;
     }
     @PutMapping("{id}")
     public void finish(@PathVariable Long id){

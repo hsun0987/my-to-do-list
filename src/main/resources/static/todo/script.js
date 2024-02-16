@@ -37,7 +37,8 @@ async function addTodo(data){
             content: data,
             done: false,
         }),
-    });
+    }).then((response) => response.json())
+        .then((result) => console.log(result));
     showTodo();
 }
 
